@@ -4,172 +4,172 @@ import React, { useState } from "react";
 import { portfolioConfig } from "@/config/portfolio";
 import { TechIcon } from "@/components/ui/TechIcon";
 
-// Official brand accent colors for each tech tool
+// Vibrant Electric Neon Brand Colors for TechStack Tools
 const techBrandMap: Record<
   string,
   { color: string; bg: string; border: string; glow: string }
 > = {
   java: {
-    color: "#F89820",
-    bg: "rgba(248, 152, 32, 0.12)",
-    border: "rgba(248, 152, 32, 0.6)",
-    glow: "rgba(248, 152, 32, 0.35)",
+    color: "#FF9100",
+    bg: "rgba(255, 145, 0, 0.16)",
+    border: "#FF9100",
+    glow: "rgba(255, 145, 0, 0.6)",
   },
   springboot: {
-    color: "#6DB33F",
-    bg: "rgba(109, 179, 63, 0.12)",
-    border: "rgba(109, 179, 63, 0.6)",
-    glow: "rgba(109, 179, 63, 0.35)",
+    color: "#00FF66",
+    bg: "rgba(0, 255, 102, 0.16)",
+    border: "#00FF66",
+    glow: "rgba(0, 255, 102, 0.6)",
   },
   spring: {
-    color: "#6DB33F",
-    bg: "rgba(109, 179, 63, 0.12)",
-    border: "rgba(109, 179, 63, 0.6)",
-    glow: "rgba(109, 179, 63, 0.35)",
+    color: "#00FF66",
+    bg: "rgba(0, 255, 102, 0.16)",
+    border: "#00FF66",
+    glow: "rgba(0, 255, 102, 0.6)",
   },
   nextjs: {
     color: "#FFFFFF",
-    bg: "rgba(255, 255, 255, 0.15)",
-    border: "rgba(255, 255, 255, 0.8)",
-    glow: "rgba(255, 255, 255, 0.3)",
+    bg: "rgba(255, 255, 255, 0.2)",
+    border: "#FFFFFF",
+    glow: "rgba(255, 255, 255, 0.7)",
   },
   next: {
     color: "#FFFFFF",
-    bg: "rgba(255, 255, 255, 0.15)",
-    border: "rgba(255, 255, 255, 0.8)",
-    glow: "rgba(255, 255, 255, 0.3)",
+    bg: "rgba(255, 255, 255, 0.2)",
+    border: "#FFFFFF",
+    glow: "rgba(255, 255, 255, 0.7)",
   },
   react: {
-    color: "#61DAFB",
-    bg: "rgba(97, 218, 251, 0.12)",
-    border: "rgba(97, 218, 251, 0.6)",
-    glow: "rgba(97, 218, 251, 0.35)",
+    color: "#00F0FF",
+    bg: "rgba(0, 240, 255, 0.16)",
+    border: "#00F0FF",
+    glow: "rgba(0, 240, 255, 0.6)",
   },
   nodejs: {
-    color: "#5FA04E",
-    bg: "rgba(95, 160, 78, 0.12)",
-    border: "rgba(95, 160, 78, 0.6)",
-    glow: "rgba(95, 160, 78, 0.35)",
+    color: "#39FF14",
+    bg: "rgba(57, 255, 20, 0.16)",
+    border: "#39FF14",
+    glow: "rgba(57, 255, 20, 0.6)",
   },
   node: {
-    color: "#5FA04E",
-    bg: "rgba(95, 160, 78, 0.12)",
-    border: "rgba(95, 160, 78, 0.6)",
-    glow: "rgba(95, 160, 78, 0.35)",
+    color: "#39FF14",
+    bg: "rgba(57, 255, 20, 0.16)",
+    border: "#39FF14",
+    glow: "rgba(57, 255, 20, 0.6)",
   },
   typescript: {
-    color: "#3178C6",
-    bg: "rgba(49, 120, 198, 0.14)",
-    border: "rgba(49, 120, 198, 0.65)",
-    glow: "rgba(49, 120, 198, 0.35)",
+    color: "#00D2FF",
+    bg: "rgba(0, 210, 255, 0.16)",
+    border: "#00D2FF",
+    glow: "rgba(0, 210, 255, 0.6)",
   },
   ts: {
-    color: "#3178C6",
-    bg: "rgba(49, 120, 198, 0.14)",
-    border: "rgba(49, 120, 198, 0.65)",
-    glow: "rgba(49, 120, 198, 0.35)",
+    color: "#00D2FF",
+    bg: "rgba(0, 210, 255, 0.16)",
+    border: "#00D2FF",
+    glow: "rgba(0, 210, 255, 0.6)",
   },
   javascript: {
-    color: "#F7DF1E",
-    bg: "rgba(247, 223, 30, 0.12)",
-    border: "rgba(247, 223, 30, 0.6)",
-    glow: "rgba(247, 223, 30, 0.35)",
+    color: "#FFE600",
+    bg: "rgba(255, 230, 0, 0.16)",
+    border: "#FFE600",
+    glow: "rgba(255, 230, 0, 0.65)",
   },
   js: {
-    color: "#F7DF1E",
-    bg: "rgba(247, 223, 30, 0.12)",
-    border: "rgba(247, 223, 30, 0.6)",
-    glow: "rgba(247, 223, 30, 0.35)",
+    color: "#FFE600",
+    bg: "rgba(255, 230, 0, 0.16)",
+    border: "#FFE600",
+    glow: "rgba(255, 230, 0, 0.65)",
   },
   docker: {
-    color: "#2496ED",
-    bg: "rgba(36, 150, 237, 0.14)",
-    border: "rgba(36, 150, 237, 0.65)",
-    glow: "rgba(36, 150, 237, 0.35)",
+    color: "#00A6FF",
+    bg: "rgba(0, 166, 255, 0.16)",
+    border: "#00A6FF",
+    glow: "rgba(0, 166, 255, 0.6)",
   },
   postgresql: {
-    color: "#4169E1",
-    bg: "rgba(65, 105, 225, 0.14)",
-    border: "rgba(65, 105, 225, 0.65)",
-    glow: "rgba(65, 105, 225, 0.35)",
+    color: "#4D7CFF",
+    bg: "rgba(77, 124, 255, 0.16)",
+    border: "#4D7CFF",
+    glow: "rgba(77, 124, 255, 0.6)",
   },
   postgres: {
-    color: "#4169E1",
-    bg: "rgba(65, 105, 225, 0.14)",
-    border: "rgba(65, 105, 225, 0.65)",
-    glow: "rgba(65, 105, 225, 0.35)",
+    color: "#4D7CFF",
+    bg: "rgba(77, 124, 255, 0.16)",
+    border: "#4D7CFF",
+    glow: "rgba(77, 124, 255, 0.6)",
   },
   mongodb: {
-    color: "#47A248",
-    bg: "rgba(71, 162, 72, 0.14)",
-    border: "rgba(71, 162, 72, 0.65)",
-    glow: "rgba(71, 162, 72, 0.35)",
+    color: "#00FF88",
+    bg: "rgba(0, 255, 136, 0.16)",
+    border: "#00FF88",
+    glow: "rgba(0, 255, 136, 0.6)",
   },
   mongo: {
-    color: "#47A248",
-    bg: "rgba(71, 162, 72, 0.14)",
-    border: "rgba(71, 162, 72, 0.65)",
-    glow: "rgba(71, 162, 72, 0.35)",
+    color: "#00FF88",
+    bg: "rgba(0, 255, 136, 0.16)",
+    border: "#00FF88",
+    glow: "rgba(0, 255, 136, 0.6)",
   },
   git: {
-    color: "#F05032",
-    bg: "rgba(240, 80, 50, 0.12)",
-    border: "rgba(240, 80, 50, 0.6)",
-    glow: "rgba(240, 80, 50, 0.35)",
+    color: "#FF3D00",
+    bg: "rgba(255, 61, 0, 0.16)",
+    border: "#FF3D00",
+    glow: "rgba(255, 61, 0, 0.6)",
   },
   tailwindcss: {
-    color: "#06B6D4",
-    bg: "rgba(6, 182, 212, 0.14)",
-    border: "rgba(6, 182, 212, 0.65)",
-    glow: "rgba(6, 182, 212, 0.35)",
+    color: "#00F5FF",
+    bg: "rgba(0, 245, 255, 0.16)",
+    border: "#00F5FF",
+    glow: "rgba(0, 245, 255, 0.6)",
   },
   tailwind: {
-    color: "#06B6D4",
-    bg: "rgba(6, 182, 212, 0.14)",
-    border: "rgba(6, 182, 212, 0.65)",
-    glow: "rgba(6, 182, 212, 0.35)",
+    color: "#00F5FF",
+    bg: "rgba(0, 245, 255, 0.16)",
+    border: "#00F5FF",
+    glow: "rgba(0, 245, 255, 0.6)",
   },
   redis: {
-    color: "#DC382D",
-    bg: "rgba(220, 56, 45, 0.14)",
-    border: "rgba(220, 56, 45, 0.65)",
-    glow: "rgba(220, 56, 45, 0.35)",
+    color: "#FF0055",
+    bg: "rgba(255, 0, 85, 0.16)",
+    border: "#FF0055",
+    glow: "rgba(255, 0, 85, 0.6)",
   },
   restapis: {
-    color: "#85EA2D",
-    bg: "rgba(133, 234, 45, 0.12)",
-    border: "rgba(133, 234, 45, 0.6)",
-    glow: "rgba(133, 234, 45, 0.35)",
+    color: "#76FF03",
+    bg: "rgba(118, 255, 3, 0.16)",
+    border: "#76FF03",
+    glow: "rgba(118, 255, 3, 0.6)",
   },
   restapi: {
-    color: "#85EA2D",
-    bg: "rgba(133, 234, 45, 0.12)",
-    border: "rgba(133, 234, 45, 0.6)",
-    glow: "rgba(133, 234, 45, 0.35)",
+    color: "#76FF03",
+    bg: "rgba(118, 255, 3, 0.16)",
+    border: "#76FF03",
+    glow: "rgba(118, 255, 3, 0.6)",
   },
   graphql: {
-    color: "#E10098",
-    bg: "rgba(225, 0, 152, 0.14)",
-    border: "rgba(225, 0, 152, 0.65)",
-    glow: "rgba(225, 0, 152, 0.35)",
+    color: "#FF007F",
+    bg: "rgba(255, 0, 127, 0.16)",
+    border: "#FF007F",
+    glow: "rgba(255, 0, 127, 0.6)",
   },
   linux: {
-    color: "#FCC624",
-    bg: "rgba(252, 198, 36, 0.12)",
-    border: "rgba(252, 198, 36, 0.6)",
-    glow: "rgba(252, 198, 36, 0.35)",
+    color: "#FFD600",
+    bg: "rgba(255, 214, 0, 0.16)",
+    border: "#FFD600",
+    glow: "rgba(255, 214, 0, 0.6)",
   },
   python: {
-    color: "#3776AB",
-    bg: "rgba(55, 118, 171, 0.14)",
-    border: "rgba(55, 118, 171, 0.65)",
-    glow: "rgba(55, 118, 171, 0.35)",
+    color: "#2979FF",
+    bg: "rgba(41, 121, 255, 0.16)",
+    border: "#2979FF",
+    glow: "rgba(41, 121, 255, 0.6)",
   },
   postman: {
-    color: "#FF6C37",
-    bg: "rgba(255, 108, 55, 0.14)",
-    border: "rgba(255, 108, 55, 0.65)",
-    glow: "rgba(255, 108, 55, 0.35)",
+    color: "#FF6D00",
+    bg: "rgba(255, 109, 0, 0.16)",
+    border: "#FF6D00",
+    glow: "rgba(255, 109, 0, 0.6)",
   },
 };
 
@@ -178,9 +178,9 @@ function TechItemCard({ item }: { item: { name: string; category: string; iconNa
   const normalizedKey = item.iconName.toLowerCase().replace(/[\s.-]/g, "");
   const brand = techBrandMap[normalizedKey] || {
     color: "#FFFFFF",
-    bg: "rgba(255, 255, 255, 0.1)",
-    border: "rgba(255, 255, 255, 0.5)",
-    glow: "rgba(255, 255, 255, 0.2)",
+    bg: "rgba(255, 255, 255, 0.15)",
+    border: "#FFFFFF",
+    glow: "rgba(255, 255, 255, 0.5)",
   };
 
   return (
@@ -190,15 +190,19 @@ function TechItemCard({ item }: { item: { name: string; category: string; iconNa
       style={{
         backgroundColor: isHovered ? brand.bg : "rgba(24, 24, 27, 0.85)",
         borderColor: isHovered ? brand.border : "rgba(39, 39, 42, 0.9)",
-        boxShadow: isHovered ? `0 0 22px ${brand.glow}, inset 0 0 12px ${brand.bg}` : "none",
-        transform: isHovered ? "scale(1.06)" : "scale(1)",
+        boxShadow: isHovered
+          ? `0 0 28px ${brand.glow}, 0 0 10px ${brand.color}, inset 0 0 14px ${brand.bg}`
+          : "none",
+        transform: isHovered ? "scale(1.08)" : "scale(1)",
       }}
       className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border text-zinc-200 transition-all duration-300 cursor-pointer shadow-md select-none"
     >
       <div
         style={{
           color: isHovered ? brand.color : "#a1a1aa",
-          filter: isHovered ? `drop-shadow(0 0 6px ${brand.glow})` : "none",
+          filter: isHovered
+            ? `drop-shadow(0 0 8px ${brand.color}) drop-shadow(0 0 16px ${brand.glow})`
+            : "none",
         }}
         className="transition-all duration-300 flex items-center justify-center shrink-0"
       >
@@ -209,12 +213,18 @@ function TechItemCard({ item }: { item: { name: string; category: string; iconNa
         <span
           style={{
             color: isHovered ? brand.color : "#ffffff",
+            textShadow: isHovered ? `0 0 14px ${brand.glow}` : "none",
           }}
-          className="text-sm font-semibold font-mono tracking-tight transition-colors duration-300"
+          className="text-sm font-semibold font-mono tracking-tight transition-all duration-300"
         >
           {item.name}
         </span>
-        <span className="text-[10px] font-mono text-zinc-400">
+        <span
+          style={{
+            color: isHovered ? "rgba(255, 255, 255, 0.9)" : "rgba(161, 161, 170, 0.8)",
+          }}
+          className="text-[10px] font-mono transition-colors duration-300"
+        >
           {item.category}
         </span>
       </div>
@@ -306,9 +316,9 @@ export function TechStackMarquee() {
               const normalizedKey = item.iconName.toLowerCase().replace(/[\s.-]/g, "");
               const brand = techBrandMap[normalizedKey] || {
                 color: "#FFFFFF",
-                bg: "rgba(255, 255, 255, 0.1)",
-                border: "rgba(255, 255, 255, 0.5)",
-                glow: "rgba(255, 255, 255, 0.2)",
+                bg: "rgba(255, 255, 255, 0.15)",
+                border: "#FFFFFF",
+                glow: "rgba(255, 255, 255, 0.5)",
               };
 
               return (
@@ -318,11 +328,15 @@ export function TechStackMarquee() {
                     ["--hover-bg" as any]: brand.bg,
                     ["--hover-border" as any]: brand.border,
                     ["--hover-color" as any]: brand.color,
+                    ["--hover-glow" as any]: brand.glow,
                   }}
-                  className="flex flex-col items-center justify-center text-center p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 text-zinc-200 transition-all duration-300 cursor-pointer hover:border-[var(--hover-border)] hover:bg-[var(--hover-bg)] hover:scale-105 group"
+                  className="flex flex-col items-center justify-center text-center p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 text-zinc-200 transition-all duration-300 cursor-pointer hover:border-[var(--hover-border)] hover:bg-[var(--hover-bg)] hover:shadow-[0_0_25px_var(--hover-glow)] hover:scale-105 group"
                 >
                   <div
-                    style={{ color: "var(--hover-color)" }}
+                    style={{
+                      color: "var(--hover-color)",
+                      filter: "drop-shadow(0 0 8px var(--hover-glow))",
+                    }}
                     className="w-8 h-8 text-zinc-400 group-hover:text-[var(--hover-color)] mb-2 transition-colors duration-300"
                   >
                     <TechIcon name={item.iconName} className="w-8 h-8" />
