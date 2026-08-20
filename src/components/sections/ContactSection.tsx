@@ -32,6 +32,14 @@ export function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Construct mailto link to ensure message reaches eshaandogra7@gmail.com
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Hello Eshaan,\n\n${formData.message}\n\nFrom:\nName: ${formData.name}\nEmail: ${formData.email}`
+    );
+    window.location.href = `mailto:${portfolioConfig.socials.email}?subject=${subject}&body=${body}`;
+
     // Client-side submission feedback
     setFormSubmitted(true);
     setTimeout(() => {

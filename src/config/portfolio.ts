@@ -31,7 +31,7 @@ export const portfolioConfig: PortfolioConfig = {
     leetcode: "https://leetcode.com/u/7Eshaan/", // Your LeetCode Profile URL
     linkedin: "https://linkedin.com/in/eshaandogra", // ✏️ EDIT HERE: Your LinkedIn Profile URL
     x: "https://x.com/eshaandogra", // ✏️ EDIT HERE: Optional Twitter/X URL
-    email: "eshaan.dogra@vitbhopal.ac.in", // ✏️ EDIT HERE: Your primary contact email
+    email: "eshaandogra7@gmail.com", // Your primary contact email
     resume: "/resume.pdf", // ✏️ EDIT HERE: Place your PDF resume in public/resume.pdf
   },
 
