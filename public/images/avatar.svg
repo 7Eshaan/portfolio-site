@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="600" height="600" fill="#09090b"/>
+  <circle cx="300" cy="300" r="280" fill="#121215" stroke="#27272a" stroke-width="4"/>
+  <!-- Stylized Geometric Avatar / Dev Silhouette -->
+  <g fill="#27272a" stroke="#52525b" stroke-width="3">
+    <circle cx="300" cy="220" r="85" fill="#18181b"/>
+    <path d="M160 480 C 160 360, 440 360, 440 480 Z" fill="#18181b"/>
+  </g>
+  <!-- Monogram Initials -->
+  <text x="300" y="240" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="72" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-2">ED</text>
+  <!-- Tech lines -->
+  <line x1="200" y1="520" x2="400" y2="520" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  <text x="300" y="550" font-family="monospace" font-size="14" font-weight="bold" fill="#a1a1aa" text-anchor="middle" letter-spacing="4">ESHAAN DOGRA • VIT BHOPAL</text>
+</svg>
