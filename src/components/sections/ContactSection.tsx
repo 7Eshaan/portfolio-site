@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -69,49 +70,52 @@ export function ContactSection() {
             </p>
           </div>
 
-          {/* Quick Email Copy Box */}
-          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3 truncate">
-              <Mail className="w-5 h-5 text-white shrink-0" />
-              <div className="flex flex-col truncate">
-                <span className="text-[10px] font-mono text-zinc-400">Direct Email</span>
-                <span className="text-xs font-mono font-semibold text-zinc-200 truncate">
-                  {portfolioConfig.socials.email}
-                </span>
-              </div>
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleCopyEmail}
-              className="text-xs font-mono shrink-0"
-            >
-              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              {copied ? "Copied" : "Copy"}
-            </Button>
-          </div>
-
-          {/* Location & University info card */}
-          <div className="space-y-3 p-4 rounded-xl bg-zinc-950/60 border border-zinc-800/80 text-xs font-mono">
-            <div className="flex items-center gap-2 text-zinc-300">
+          {/* Location & University Badge */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-zinc-950/80 border border-zinc-800 text-xs font-mono text-zinc-300 backdrop-blur-sm">
               <GraduationCap className="w-4 h-4 text-white" />
               <span>{portfolioConfig.personal.college}</span>
             </div>
-            <div className="flex items-center gap-2 text-zinc-400">
-              <MapPin className="w-4 h-4" />
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-zinc-950/80 border border-zinc-800 text-xs font-mono text-zinc-300 backdrop-blur-sm">
+              <MapPin className="w-4 h-4 text-white" />
               <span>{portfolioConfig.personal.location}</span>
             </div>
           </div>
 
+          {/* Quick Copy Email Pill with 3D Tilt */}
+          <TiltCard maxTilt={5} className="p-4 rounded-xl bg-zinc-950/90 border border-zinc-800 flex items-center justify-between group backdrop-blur-sm">
+            <div className="flex items-center gap-3 truncate">
+              <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center shrink-0">
+                <Mail className="w-4 h-4 text-white" />
+              </div>
+              <div className="truncate">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase">Direct Email</span>
+                <div className="text-xs font-mono text-white font-semibold truncate">
+                  {portfolioConfig.socials.email}
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={handleCopyEmail}
+              className="p-2 rounded-lg bg-zinc-900 border border-zinc-700 text-zinc-300 hover:text-white hover:border-white transition-all shrink-0 ml-2"
+              title="Copy email to clipboard"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+            </button>
+          </TiltCard>
+
           {/* Social Profiles Grid */}
-          <div className="space-y-2">
-            <span className="text-xs font-mono text-zinc-400">Connect across platforms:</span>
+          <div className="space-y-2 pt-2">
+            <span className="text-xs font-mono uppercase text-zinc-400 tracking-wider">
+              Connected Networks
+            </span>
             <div className="grid grid-cols-2 gap-2">
               <a
                 href={portfolioConfig.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg bg-zinc-950 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group"
+                className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group backdrop-blur-sm"
               >
                 <div className="flex items-center gap-2">
                   <Github className="w-4 h-4" />
@@ -124,7 +128,7 @@ export function ContactSection() {
                 href={portfolioConfig.socials.leetcode}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg bg-zinc-950 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group"
+                className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group backdrop-blur-sm"
               >
                 <div className="flex items-center gap-2">
                   <Code2 className="w-4 h-4" />
@@ -137,7 +141,7 @@ export function ContactSection() {
                 href={portfolioConfig.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg bg-zinc-950 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group"
+                className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group backdrop-blur-sm"
               >
                 <div className="flex items-center gap-2">
                   <Linkedin className="w-4 h-4" />
@@ -151,7 +155,7 @@ export function ContactSection() {
                   href={portfolioConfig.socials.x}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-lg bg-zinc-950 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group"
+                  className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all text-xs font-mono flex items-center justify-between group backdrop-blur-sm"
                 >
                   <div className="flex items-center gap-2">
                     <Twitter className="w-4 h-4" />
@@ -164,8 +168,8 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Right Column: Interactive Contact Form (7 cols) */}
-        <div className="lg:col-span-7 rounded-2xl bg-zinc-950 border border-zinc-800 p-6 sm:p-8">
+        {/* Right Column: Interactive Contact Form with 3D Tilt (7 cols) */}
+        <TiltCard maxTilt={5} className="lg:col-span-7 rounded-2xl bg-zinc-950/90 border border-zinc-800 p-6 sm:p-8 backdrop-blur-sm">
           <h3 className="text-lg font-bold font-mono text-white mb-1">
             Send a Direct Message
           </h3>
@@ -223,18 +227,20 @@ export function ContactSection() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                variant="primary"
-                size="md"
-                icon={<Send className="w-4 h-4" />}
-                className="w-full font-mono text-xs"
-              >
-                Dispatch Message
-              </Button>
+              <div className="pt-2">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="md"
+                  icon={<Send className="w-4 h-4" />}
+                  className="w-full font-mono text-xs"
+                >
+                  Transmit Message to Eshaan
+                </Button>
+              </div>
             </form>
           )}
-        </div>
+        </TiltCard>
 
       </div>
     </section>

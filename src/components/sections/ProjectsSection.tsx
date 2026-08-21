@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { Card } from "@/components/ui/Card";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ProjectsSection() {
   const [filterTag, setFilterTag] = useState<string>("All");
@@ -63,12 +63,13 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Projects Grid with 3D Corner Tilt */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProjects.map((project, idx) => (
-          <div
+          <TiltCard
             key={project.id}
-            className="group relative rounded-2xl bg-zinc-950/90 border border-zinc-800 p-6 flex flex-col justify-between hover:border-white transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+            maxTilt={7}
+            className="group relative rounded-2xl bg-zinc-950/90 border border-zinc-800 p-6 flex flex-col justify-between hover:border-white transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.06)] backdrop-blur-sm"
           >
             {/* Top Area */}
             <div>
@@ -150,39 +151,24 @@ export function ProjectsSection() {
                       rel="noopener noreferrer"
                     >
                       <Button
-                        variant="outline"
+                        variant="secondary"
                         size="sm"
                         icon={<ExternalLink className="w-3.5 h-3.5" />}
                         className="text-xs font-mono"
                       >
-                        Live Demo
+                        Demo
                       </Button>
                     </a>
                   )}
                 </div>
 
-                <span className="text-[11px] font-mono text-zinc-400 group-hover:text-white transition-colors flex items-center gap-1">
-                  Explore <ArrowUpRight className="w-3.5 h-3.5" />
+                <span className="text-xs font-mono text-zinc-400 flex items-center gap-1">
+                  Verified <CheckCircle2 className="w-3 h-3 text-white" />
                 </span>
               </div>
             </div>
-          </div>
+          </TiltCard>
         ))}
-      </div>
-
-      {/* Projects Footer */}
-      <div className="mt-10 text-center">
-        <p className="text-xs font-mono text-zinc-400">
-          Want to see more repositories? Check out all projects on{" "}
-          <a
-            href={portfolioConfig.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white underline underline-offset-4 hover:text-zinc-300"
-          >
-            GitHub ({portfolioConfig.socials.github.replace(/.*github\.com\//, "@")})
-          </a>
-        </p>
       </div>
     </section>
   );

@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { TiltCard } from "@/components/ui/TiltCard";
 import { extractUsername } from "@/lib/utils";
 
 export function LeetCodeSection() {
@@ -100,8 +101,8 @@ export function LeetCodeSection() {
       {/* Main LeetCode Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left: Donut Chart Breakdown (7 cols) */}
-        <div className="lg:col-span-7 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6 flex flex-col justify-between">
+        {/* Left: Donut Chart Breakdown 3D Tilt Panel (7 cols) */}
+        <TiltCard maxTilt={6} className="lg:col-span-7 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6 flex flex-col justify-between backdrop-blur-sm">
           <div>
             <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4 mb-6">
               <div>
@@ -326,14 +327,14 @@ export function LeetCodeSection() {
             <span>Focus: Recursion, Backtracking & Linked Lists</span>
             <span>Primary Language: Java</span>
           </div>
-        </div>
+        </TiltCard>
 
         {/* Right: Ranking, Streak, & Submissions (5 cols) */}
         <div className="lg:col-span-5 flex flex-col gap-4">
           
-          {/* Top 2 Cards: Ranking & Streak */}
+          {/* Top 2 Cards: Ranking & Streak (With 3D Corner Tilt) */}
           <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default hover:-translate-y-1">
+            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default">
               <div className="flex items-center justify-between text-zinc-400 group-hover:text-zinc-800 mb-2">
                 <span className="text-xs font-mono">Global Rank</span>
                 <Trophy className="w-4 h-4 group-hover:text-black" />
@@ -346,7 +347,7 @@ export function LeetCodeSection() {
               </span>
             </Card>
 
-            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default hover:-translate-y-1">
+            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default">
               <div className="flex items-center justify-between text-zinc-400 group-hover:text-zinc-800 mb-2">
                 <span className="text-xs font-mono">Active Practice</span>
                 <Flame className="w-4 h-4 group-hover:text-black" />
@@ -360,8 +361,8 @@ export function LeetCodeSection() {
             </Card>
           </div>
 
-          {/* Recent Solved Submissions */}
-          <div className="flex-1 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-5 flex flex-col justify-between">
+          {/* Recent Solved Submissions 3D Tilt Panel */}
+          <TiltCard maxTilt={6} className="flex-1 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-5 flex flex-col justify-between backdrop-blur-sm">
             <div>
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-bold font-mono text-white uppercase tracking-wider">
@@ -379,7 +380,7 @@ export function LeetCodeSection() {
                 ]).map((sub, idx) => (
                   <div
                     key={`${sub.title}-${idx}`}
-                    className="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900/60 border border-zinc-800/80 text-xs font-mono hover:bg-white hover:text-black hover:border-white transition-all group cursor-default hover:-translate-x-1"
+                    className="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900/60 border border-zinc-800/80 text-xs font-mono hover:bg-white hover:text-black hover:border-white transition-all group cursor-default"
                   >
                     <div className="flex items-center gap-2 truncate">
                       <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black shrink-0" />
@@ -399,7 +400,7 @@ export function LeetCodeSection() {
               <span>{stats?.badgesCount ?? 3} Badges Earned</span>
               <span className="text-white">Primary: Java</span>
             </div>
-          </div>
+          </TiltCard>
 
         </div>
 

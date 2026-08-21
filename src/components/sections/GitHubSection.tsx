@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { TiltCard } from "@/components/ui/TiltCard";
 import { extractUsername } from "@/lib/utils";
 
 export function GitHubSection() {
@@ -42,7 +43,7 @@ export function GitHubSection() {
   }, [currentUsername]);
 
   // Exact Specified Colors for GitHub Languages:
-  // TypeScript: Turquoise (#00F5D4), Python: #00ff11, JavaScript: Bright Yellow (#FFE600), Java: Bright Red (#FF1744), EJS: Bright Pink (#FF007F)
+  // TypeScript: Turquoise, Python: #00ff11, JavaScript: Bright Yellow, Java: Bright Red, EJS: Bright Pink
   const languageColorMap: Record<string, { hex: string; bg: string; border: string }> = {
     TypeScript: { 
       hex: "#00F5D4", // Turquoise
@@ -160,7 +161,7 @@ export function GitHubSection() {
         </div>
       </div>
 
-      {/* GitHub Metric Cards Grid */}
+      {/* GitHub Metric Cards Grid (With 3D Corner Tilt) */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <Card className="flex flex-col justify-between p-5 hover:border-white hover:bg-white hover:text-black transition-all duration-300 group cursor-default">
           <div className="flex items-center justify-between text-zinc-400 group-hover:text-zinc-800 mb-3">
@@ -215,11 +216,11 @@ export function GitHubSection() {
         </Card>
       </div>
 
-      {/* Detailed Languages Breakdown with Exact Specified Colors */}
+      {/* Detailed Languages Breakdown with 3D Tilt Panels & Recent Repos */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Top Languages Donut (5 cols) */}
-        <div className="lg:col-span-5 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6 flex flex-col justify-between">
+        {/* Top Languages 3D Tilt Panel (5 cols) */}
+        <TiltCard maxTilt={8} className="lg:col-span-5 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6 flex flex-col justify-between backdrop-blur-sm">
           <div>
             <div className="flex items-center justify-between mb-4 border-b border-zinc-800/80 pb-3">
               <h3 className="text-sm font-bold font-mono text-white">Top GitHub Languages</h3>
@@ -339,10 +340,10 @@ export function GitHubSection() {
           <div className="mt-4 pt-3 border-t border-zinc-800/80 text-[11px] font-mono text-zinc-400">
             📊 Auto-computed from repository code volume
           </div>
-        </div>
+        </TiltCard>
 
-        {/* Recent GitHub Repositories (7 cols) */}
-        <div className="lg:col-span-7 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6">
+        {/* Recent GitHub Repositories 3D Tilt Panel (7 cols) */}
+        <TiltCard maxTilt={6} className="lg:col-span-7 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4 border-b border-zinc-800/80 pb-3">
             <h3 className="text-sm font-bold font-mono text-white">Featured GitHub Repositories</h3>
             <span className="text-xs font-mono text-zinc-400">Live Pushed</span>
@@ -386,7 +387,7 @@ export function GitHubSection() {
               </a>
             ))}
           </div>
-        </div>
+        </TiltCard>
 
       </div>
     </section>

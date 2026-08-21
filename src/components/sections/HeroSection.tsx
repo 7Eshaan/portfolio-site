@@ -11,6 +11,7 @@ import {
   Code
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 export function HeroSection() {
   const [profileImgSrc, setProfileImgSrc] = useState<string>(
@@ -110,15 +111,15 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Clean Profile Picture (PFP) Showcase (5 cols) */}
+          {/* Right Column: Clean Profile Picture (PFP) Showcase with 3D Tilt (5 cols) */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-[340px] group">
+            <TiltCard maxTilt={10} scale={1.03} className="relative w-full max-w-[340px] group rounded-2xl">
               
               {/* Decorative Corner Accents */}
-              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1" />
-              <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:-translate-x-1 group-hover:translate-y-1" />
-              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1" />
+              <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1" />
+              <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:-translate-x-1 group-hover:translate-y-1" />
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1" />
 
               {/* Main Clean Photo Card Frame */}
               <div className="relative aspect-[4/5] sm:aspect-square w-full rounded-2xl bg-zinc-950/90 border border-zinc-800 p-2 shadow-2xl overflow-hidden group-hover:border-zinc-500 transition-all duration-300 backdrop-blur-sm">
@@ -142,7 +143,7 @@ export function HeroSection() {
                 </div>
               </div>
 
-            </div>
+            </TiltCard>
           </div>
 
         </div>
