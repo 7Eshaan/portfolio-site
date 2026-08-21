@@ -59,6 +59,8 @@ export function LeetCodeSection() {
   const mediumOffset = -easyStroke;
   const hardOffset = -(easyStroke + mediumStroke);
 
+  const isAnyTierHovered = hoveredTier !== null;
+
   return (
     <section id="leetcode" className="py-20 max-w-6xl mx-auto px-4 sm:px-6 relative">
       {/* Header */}
@@ -122,7 +124,7 @@ export function LeetCodeSection() {
               </div>
             </div>
 
-            {/* Crisp Donut Pie Chart: Easy = #00ff11, Medium = Bright Yellow, Hard = Bright Red */}
+            {/* Crisp Donut Pie Chart with Pop-Out & Isolate Darken Effect */}
             <div className="flex flex-col sm:flex-row items-center justify-around gap-6 py-2">
               
               {/* SVG Crisp Donut Pie Chart */}
@@ -134,7 +136,7 @@ export function LeetCodeSection() {
                     cy="60"
                     r="46"
                     fill="transparent"
-                    stroke="#1f1f23"
+                    stroke="#18181b"
                     strokeWidth="11"
                   />
 
@@ -145,45 +147,48 @@ export function LeetCodeSection() {
                     r="46"
                     fill="transparent"
                     stroke="#00ff11"
-                    strokeWidth={hoveredTier === "Easy" ? 13 : 11}
+                    strokeWidth={hoveredTier === "Easy" ? 15 : 11}
                     strokeDasharray={`${easyStroke} ${circumference}`}
                     strokeDashoffset={easyOffset}
                     strokeLinecap="round"
+                    opacity={isAnyTierHovered ? (hoveredTier === "Easy" ? 1 : 0.06) : 1}
                     onMouseEnter={() => setHoveredTier("Easy")}
                     onMouseLeave={() => setHoveredTier(null)}
-                    className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
+                    className="transition-all duration-300 ease-out cursor-pointer"
                   />
 
-                  {/* Medium Segment (Bright Yellow) */}
+                  {/* Medium Segment (Bright Yellow #FFE600) */}
                   <circle
                     cx="60"
                     cy="60"
                     r="46"
                     fill="transparent"
                     stroke="#FFE600"
-                    strokeWidth={hoveredTier === "Medium" ? 13 : 11}
+                    strokeWidth={hoveredTier === "Medium" ? 15 : 11}
                     strokeDasharray={`${mediumStroke} ${circumference}`}
                     strokeDashoffset={mediumOffset}
                     strokeLinecap="round"
+                    opacity={isAnyTierHovered ? (hoveredTier === "Medium" ? 1 : 0.06) : 1}
                     onMouseEnter={() => setHoveredTier("Medium")}
                     onMouseLeave={() => setHoveredTier(null)}
-                    className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
+                    className="transition-all duration-300 ease-out cursor-pointer"
                   />
 
-                  {/* Hard Segment (Bright Red) */}
+                  {/* Hard Segment (Bright Red #FF1744) */}
                   <circle
                     cx="60"
                     cy="60"
                     r="46"
                     fill="transparent"
                     stroke="#FF1744"
-                    strokeWidth={hoveredTier === "Hard" ? 13 : 11}
+                    strokeWidth={hoveredTier === "Hard" ? 15 : 11}
                     strokeDasharray={`${hardStroke} ${circumference}`}
                     strokeDashoffset={hardOffset}
                     strokeLinecap="round"
+                    opacity={isAnyTierHovered ? (hoveredTier === "Hard" ? 1 : 0.06) : 1}
                     onMouseEnter={() => setHoveredTier("Hard")}
                     onMouseLeave={() => setHoveredTier(null)}
-                    className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
+                    className="transition-all duration-300 ease-out cursor-pointer"
                   />
                 </svg>
 
@@ -209,16 +214,17 @@ export function LeetCodeSection() {
                 </div>
               </div>
 
-              {/* Difficulty Cards: Easy = #00ff11, Medium = Bright Yellow, Hard = Bright Red */}
+              {/* Difficulty Cards: Easy = #00ff11, Medium = Bright Yellow, Hard = Bright Red with Hover Isolation */}
               <div className="flex-1 w-full space-y-3">
                 {/* Easy Pill (#00ff11) */}
                 <div 
                   onMouseEnter={() => setHoveredTier("Easy")}
                   onMouseLeave={() => setHoveredTier(null)}
                   style={{
-                    transform: hoveredTier === "Easy" ? "translateX(4px)" : "translateX(0px)",
-                    backgroundColor: hoveredTier === "Easy" ? "rgba(0, 255, 17, 0.12)" : "rgba(24, 24, 27, 0.8)",
+                    transform: hoveredTier === "Easy" ? "translateX(6px)" : "translateX(0px)",
+                    backgroundColor: hoveredTier === "Easy" ? "rgba(0, 255, 17, 0.14)" : "rgba(24, 24, 27, 0.8)",
                     borderColor: hoveredTier === "Easy" ? "#00ff11" : "rgba(39, 39, 42, 0.8)",
+                    opacity: isAnyTierHovered ? (hoveredTier === "Easy" ? 1 : 0.3) : 1,
                   }}
                   className="p-3 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer select-none group"
                 >
@@ -227,7 +233,7 @@ export function LeetCodeSection() {
                       className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
                       style={{
                         backgroundColor: "#00ff11",
-                        transform: hoveredTier === "Easy" ? "scale(1.25)" : "scale(1)",
+                        transform: hoveredTier === "Easy" ? "scale(1.3)" : "scale(1)",
                       }}
                     />
                     <div>
@@ -247,14 +253,15 @@ export function LeetCodeSection() {
                   </div>
                 </div>
 
-                {/* Medium Pill (Bright Yellow) */}
+                {/* Medium Pill (Bright Yellow #FFE600) */}
                 <div 
                   onMouseEnter={() => setHoveredTier("Medium")}
                   onMouseLeave={() => setHoveredTier(null)}
                   style={{
-                    transform: hoveredTier === "Medium" ? "translateX(4px)" : "translateX(0px)",
-                    backgroundColor: hoveredTier === "Medium" ? "rgba(255, 230, 0, 0.12)" : "rgba(24, 24, 27, 0.8)",
+                    transform: hoveredTier === "Medium" ? "translateX(6px)" : "translateX(0px)",
+                    backgroundColor: hoveredTier === "Medium" ? "rgba(255, 230, 0, 0.14)" : "rgba(24, 24, 27, 0.8)",
                     borderColor: hoveredTier === "Medium" ? "#FFE600" : "rgba(39, 39, 42, 0.8)",
+                    opacity: isAnyTierHovered ? (hoveredTier === "Medium" ? 1 : 0.3) : 1,
                   }}
                   className="p-3 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer select-none group"
                 >
@@ -263,7 +270,7 @@ export function LeetCodeSection() {
                       className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
                       style={{
                         backgroundColor: "#FFE600",
-                        transform: hoveredTier === "Medium" ? "scale(1.25)" : "scale(1)",
+                        transform: hoveredTier === "Medium" ? "scale(1.3)" : "scale(1)",
                       }}
                     />
                     <div>
@@ -283,14 +290,15 @@ export function LeetCodeSection() {
                   </div>
                 </div>
 
-                {/* Hard Pill (Bright Red) */}
+                {/* Hard Pill (Bright Red #FF1744) */}
                 <div 
                   onMouseEnter={() => setHoveredTier("Hard")}
                   onMouseLeave={() => setHoveredTier(null)}
                   style={{
-                    transform: hoveredTier === "Hard" ? "translateX(4px)" : "translateX(0px)",
-                    backgroundColor: hoveredTier === "Hard" ? "rgba(255, 23, 68, 0.12)" : "rgba(24, 24, 27, 0.8)",
+                    transform: hoveredTier === "Hard" ? "translateX(6px)" : "translateX(0px)",
+                    backgroundColor: hoveredTier === "Hard" ? "rgba(255, 23, 68, 0.14)" : "rgba(24, 24, 27, 0.8)",
                     borderColor: hoveredTier === "Hard" ? "#FF1744" : "rgba(39, 39, 42, 0.8)",
+                    opacity: isAnyTierHovered ? (hoveredTier === "Hard" ? 1 : 0.3) : 1,
                   }}
                   className="p-3 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer select-none group"
                 >
@@ -299,7 +307,7 @@ export function LeetCodeSection() {
                       className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
                       style={{
                         backgroundColor: "#FF1744",
-                        transform: hoveredTier === "Hard" ? "scale(1.25)" : "scale(1)",
+                        transform: hoveredTier === "Hard" ? "scale(1.3)" : "scale(1)",
                       }}
                     />
                     <div>

@@ -43,56 +43,56 @@ export function GitHubSection() {
   }, [currentUsername]);
 
   // Exact Specified Colors for GitHub Languages:
-  // TypeScript: Turquoise, Python: #00ff11, JavaScript: Bright Yellow, Java: Bright Red, EJS: Bright Pink
+  // TypeScript: Turquoise (#00F5D4), Python: #00ff11, JavaScript: Bright Yellow (#FFE600), Java: Bright Red (#FF1744), EJS: Bright Pink (#FF007F)
   const languageColorMap: Record<string, { hex: string; bg: string; border: string }> = {
     TypeScript: { 
       hex: "#00F5D4", // Turquoise
-      bg: "rgba(0, 245, 212, 0.12)",
+      bg: "rgba(0, 245, 212, 0.14)",
       border: "#00F5D4"
     },
     Python: { 
-      hex: "#00ff11", // Exact specified green
-      bg: "rgba(0, 255, 17, 0.12)",
+      hex: "#00ff11", // Specified green
+      bg: "rgba(0, 255, 17, 0.14)",
       border: "#00ff11"
     },
     JavaScript: { 
       hex: "#FFE600", // Bright Yellow
-      bg: "rgba(255, 230, 0, 0.12)",
+      bg: "rgba(255, 230, 0, 0.14)",
       border: "#FFE600"
     },
     Java: { 
       hex: "#FF1744", // Bright Red
-      bg: "rgba(255, 23, 68, 0.12)",
+      bg: "rgba(255, 23, 68, 0.14)",
       border: "#FF1744"
     },
     EJS: { 
       hex: "#FF007F", // Bright Pink
-      bg: "rgba(255, 0, 127, 0.12)",
+      bg: "rgba(255, 0, 127, 0.14)",
       border: "#FF007F"
     },
     "HTML / EJS": { 
       hex: "#FF007F", 
-      bg: "rgba(255, 0, 127, 0.12)",
+      bg: "rgba(255, 0, 127, 0.14)",
       border: "#FF007F"
     },
     HTML: { 
       hex: "#FF007F", 
-      bg: "rgba(255, 0, 127, 0.12)",
+      bg: "rgba(255, 0, 127, 0.14)",
       border: "#FF007F"
     },
     CSS: { 
       hex: "#8B5CF6", 
-      bg: "rgba(139, 92, 246, 0.12)",
+      bg: "rgba(139, 92, 246, 0.14)",
       border: "#8B5CF6"
     },
     C: { 
       hex: "#00F5D4", 
-      bg: "rgba(0, 245, 212, 0.12)",
+      bg: "rgba(0, 245, 212, 0.14)",
       border: "#00F5D4"
     },
     "C++": { 
       hex: "#00F5D4", 
-      bg: "rgba(0, 245, 212, 0.12)",
+      bg: "rgba(0, 245, 212, 0.14)",
       border: "#00F5D4"
     },
   };
@@ -109,12 +109,12 @@ export function GitHubSection() {
     ? stats.topLanguages.map((l) => ({
         ...l,
         color: languageColorMap[l.name]?.hex || l.color || "#00F5D4",
-        bg: languageColorMap[l.name]?.bg || "rgba(0, 245, 212, 0.12)",
+        bg: languageColorMap[l.name]?.bg || "rgba(0, 245, 212, 0.14)",
         border: languageColorMap[l.name]?.border || "#00F5D4",
       }))
     : defaultLanguages.map((l) => ({
         ...l,
-        bg: languageColorMap[l.name]?.bg || "rgba(0, 245, 212, 0.12)",
+        bg: languageColorMap[l.name]?.bg || "rgba(0, 245, 212, 0.14)",
         border: languageColorMap[l.name]?.border || "#00F5D4",
       }));
 
@@ -227,7 +227,7 @@ export function GitHubSection() {
               <Code2 className="w-4 h-4 text-zinc-400" />
             </div>
             
-            {/* SVG Crisp Donut Pie Chart (No blurry glow) */}
+            {/* SVG Crisp Donut Pie Chart with Pop-Out & Isolate Darken Effect */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 my-2">
               <div className="relative w-36 h-36 flex items-center justify-center shrink-0">
                 <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
@@ -237,7 +237,7 @@ export function GitHubSection() {
                     cy="50"
                     r="40"
                     fill="transparent"
-                    stroke="#1f1f23"
+                    stroke="#18181b"
                     strokeWidth="10"
                   />
 
@@ -247,6 +247,11 @@ export function GitHubSection() {
                     const offset = -(accumulatedPercent / 100) * circumference;
                     accumulatedPercent += lang.percentage;
                     const isHovered = hoveredLang === lang.name;
+                    const isAnyHovered = hoveredLang !== null;
+
+                    // When any item is hovered, non-hovered items go completely dark
+                    const segmentOpacity = isAnyHovered ? (isHovered ? 1 : 0.06) : 1;
+                    const strokeWidth = isHovered ? 14 : 10;
 
                     return (
                       <circle
@@ -256,13 +261,14 @@ export function GitHubSection() {
                         r="40"
                         fill="transparent"
                         stroke={lang.color}
-                        strokeWidth={isHovered ? 12 : 10}
+                        strokeWidth={strokeWidth}
                         strokeDasharray={`${strokeLength} ${circumference}`}
                         strokeDashoffset={offset}
                         strokeLinecap="round"
+                        opacity={segmentOpacity}
                         onMouseEnter={() => setHoveredLang(lang.name)}
                         onMouseLeave={() => setHoveredLang(null)}
-                        className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
+                        className="transition-all duration-300 ease-out cursor-pointer"
                       />
                     );
                   })}
@@ -292,10 +298,12 @@ export function GitHubSection() {
                 </div>
               </div>
 
-              {/* Language Legend List with Specified Colors */}
+              {/* Language Legend List with Hover Isolation */}
               <div className="flex-1 w-full space-y-2">
                 {languages.map((lang) => {
                   const isHovered = hoveredLang === lang.name;
+                  const isAnyHovered = hoveredLang !== null;
+                  const cardOpacity = isAnyHovered ? (isHovered ? 1 : 0.3) : 1;
 
                   return (
                     <div
@@ -303,9 +311,10 @@ export function GitHubSection() {
                       onMouseEnter={() => setHoveredLang(lang.name)}
                       onMouseLeave={() => setHoveredLang(null)}
                       style={{
-                        transform: isHovered ? "translateX(4px)" : "translateX(0px)",
+                        transform: isHovered ? "translateX(6px)" : "translateX(0px)",
                         backgroundColor: isHovered ? lang.bg : "rgba(24, 24, 27, 0.8)",
                         borderColor: isHovered ? lang.border : "rgba(39, 39, 42, 0.8)",
+                        opacity: cardOpacity,
                       }}
                       className="p-2.5 rounded-xl border flex items-center justify-between text-xs font-mono transition-all duration-200 cursor-pointer select-none group"
                     >
@@ -314,7 +323,7 @@ export function GitHubSection() {
                           className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
                           style={{
                             backgroundColor: lang.color,
-                            transform: isHovered ? "scale(1.25)" : "scale(1)",
+                            transform: isHovered ? "scale(1.3)" : "scale(1)",
                           }}
                         />
                         <span 
