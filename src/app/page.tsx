@@ -10,11 +10,15 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { TimelineSection } from "@/components/sections/TimelineSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { Footer } from "@/components/sections/Footer";
+import { InteractiveBackground } from "@/components/ui/InteractiveBackground";
 import { portfolioConfig } from "@/config/portfolio";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white relative selection:bg-white selection:text-black">
+      {/* Global Interactive Neural Constellation Particle Network (Across all sections) */}
+      <InteractiveBackground />
+
       {/* Navigation */}
       <Navbar />
 

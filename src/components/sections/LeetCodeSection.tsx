@@ -17,6 +17,7 @@ import { extractUsername } from "@/lib/utils";
 export function LeetCodeSection() {
   const [stats, setStats] = useState<LeetCodeStatsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [hoveredTier, setHoveredTier] = useState<"Easy" | "Medium" | "Hard" | null>(null);
   const currentUsername = extractUsername(portfolioConfig.socials.leetcode, "leetcode") || "7Eshaan";
 
   const fetchStats = async (user: string) => {
@@ -99,7 +100,7 @@ export function LeetCodeSection() {
       {/* Main LeetCode Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Left: Neon Pie / Donut Chart Breakdown (7 cols) */}
+        {/* Left: Donut Chart Breakdown (7 cols) */}
         <div className="lg:col-span-7 rounded-2xl bg-zinc-950/80 border border-zinc-800 p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4 mb-6">
@@ -115,105 +116,121 @@ export function LeetCodeSection() {
               <div className="text-right">
                 <span className="text-xs font-mono text-zinc-400">Acceptance Rate</span>
                 <div className="text-2xl font-bold font-mono text-white mt-1">
-                  {loading ? "--" : stats?.acceptanceRate ?? 57.5}%
+                  {loading ? "--" : stats?.acceptanceRate ?? 55.6}%
                 </div>
               </div>
             </div>
 
-            {/* Neon Donut Pie Chart & Stats Row */}
+            {/* Crisp Donut Pie Chart: Easy = #00ff11, Medium = Bright Yellow, Hard = Bright Red */}
             <div className="flex flex-col sm:flex-row items-center justify-around gap-6 py-2">
               
-              {/* SVG Neon Donut Pie Chart */}
+              {/* SVG Crisp Donut Pie Chart */}
               <div className="relative w-44 h-44 flex items-center justify-center shrink-0">
                 <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 120 120">
-                  {/* Neon Glow Filter Definitions */}
-                  <defs>
-                    <filter id="neon-glow-easy" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#00FF9D" floodOpacity="0.8" />
-                    </filter>
-                    <filter id="neon-glow-medium" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#FFB800" floodOpacity="0.8" />
-                    </filter>
-                    <filter id="neon-glow-hard" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#FF0055" floodOpacity="0.8" />
-                    </filter>
-                  </defs>
-
                   {/* Track Background */}
                   <circle
                     cx="60"
                     cy="60"
                     r="46"
                     fill="transparent"
-                    stroke="#18181b"
+                    stroke="#1f1f23"
                     strokeWidth="11"
                   />
 
-                  {/* Easy Segment (Neon Green) */}
+                  {/* Easy Segment (#00ff11) */}
                   <circle
                     cx="60"
                     cy="60"
                     r="46"
                     fill="transparent"
-                    stroke="#00FF9D"
-                    strokeWidth="11"
+                    stroke="#00ff11"
+                    strokeWidth={hoveredTier === "Easy" ? 13 : 11}
                     strokeDasharray={`${easyStroke} ${circumference}`}
                     strokeDashoffset={easyOffset}
                     strokeLinecap="round"
-                    filter="url(#neon-glow-easy)"
-                    className="transition-all duration-1000 ease-out hover:opacity-90"
+                    onMouseEnter={() => setHoveredTier("Easy")}
+                    onMouseLeave={() => setHoveredTier(null)}
+                    className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
                   />
 
-                  {/* Medium Segment (Neon Amber / Yellow) */}
+                  {/* Medium Segment (Bright Yellow) */}
                   <circle
                     cx="60"
                     cy="60"
                     r="46"
                     fill="transparent"
-                    stroke="#FFB800"
-                    strokeWidth="11"
+                    stroke="#FFE600"
+                    strokeWidth={hoveredTier === "Medium" ? 13 : 11}
                     strokeDasharray={`${mediumStroke} ${circumference}`}
                     strokeDashoffset={mediumOffset}
                     strokeLinecap="round"
-                    filter="url(#neon-glow-medium)"
-                    className="transition-all duration-1000 ease-out hover:opacity-90"
+                    onMouseEnter={() => setHoveredTier("Medium")}
+                    onMouseLeave={() => setHoveredTier(null)}
+                    className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
                   />
 
-                  {/* Hard Segment (Neon Pink / Crimson) */}
+                  {/* Hard Segment (Bright Red) */}
                   <circle
                     cx="60"
                     cy="60"
                     r="46"
                     fill="transparent"
-                    stroke="#FF0055"
-                    strokeWidth="11"
+                    stroke="#FF1744"
+                    strokeWidth={hoveredTier === "Hard" ? 13 : 11}
                     strokeDasharray={`${hardStroke} ${circumference}`}
                     strokeDashoffset={hardOffset}
                     strokeLinecap="round"
-                    filter="url(#neon-glow-hard)"
-                    className="transition-all duration-1000 ease-out hover:opacity-90"
+                    onMouseEnter={() => setHoveredTier("Hard")}
+                    onMouseLeave={() => setHoveredTier(null)}
+                    className="transition-all duration-300 ease-out cursor-pointer hover:opacity-95"
                   />
                 </svg>
 
                 {/* Donut Center Counter */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-2xl font-bold font-mono text-white tracking-tight">
-                    {totalSolved}
+                  <span 
+                    style={{
+                      color: hoveredTier === "Easy" 
+                        ? "#00ff11" 
+                        : hoveredTier === "Medium" 
+                        ? "#FFE600" 
+                        : hoveredTier === "Hard" 
+                        ? "#FF1744" 
+                        : "#FFFFFF"
+                    }}
+                    className="text-2xl font-bold font-mono tracking-tight transition-colors duration-300"
+                  >
+                    {hoveredTier === "Easy" ? easySolved : hoveredTier === "Medium" ? mediumSolved : hoveredTier === "Hard" ? hardSolved : totalSolved}
                   </span>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">
-                    Solved
+                    {hoveredTier ? `${hoveredTier} Solved` : "Total Solved"}
                   </span>
                 </div>
               </div>
 
-              {/* Difficulty Cards with Neon Accents */}
+              {/* Difficulty Cards: Easy = #00ff11, Medium = Bright Yellow, Hard = Bright Red */}
               <div className="flex-1 w-full space-y-3">
-                {/* Easy Pill */}
-                <div className="p-3 rounded-xl bg-zinc-900/90 border border-zinc-800/90 flex items-center justify-between transition-all hover:border-[#00FF9D]/60 hover:shadow-[0_0_15px_rgba(0,255,157,0.15)] group">
+                {/* Easy Pill (#00ff11) */}
+                <div 
+                  onMouseEnter={() => setHoveredTier("Easy")}
+                  onMouseLeave={() => setHoveredTier(null)}
+                  style={{
+                    transform: hoveredTier === "Easy" ? "translateX(4px)" : "translateX(0px)",
+                    backgroundColor: hoveredTier === "Easy" ? "rgba(0, 255, 17, 0.12)" : "rgba(24, 24, 27, 0.8)",
+                    borderColor: hoveredTier === "Easy" ? "#00ff11" : "rgba(39, 39, 42, 0.8)",
+                  }}
+                  className="p-3 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer select-none group"
+                >
                   <div className="flex items-center gap-2.5">
-                    <span className="w-3 h-3 rounded-full bg-[#00FF9D] shadow-[0_0_8px_#00FF9D] shrink-0" />
+                    <span
+                      className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
+                      style={{
+                        backgroundColor: "#00ff11",
+                        transform: hoveredTier === "Easy" ? "scale(1.25)" : "scale(1)",
+                      }}
+                    />
                     <div>
-                      <div className="text-xs font-bold font-mono text-white group-hover:text-[#00FF9D] transition-colors">
+                      <div className="text-xs font-bold font-mono text-white transition-colors">
                         Easy
                       </div>
                       <div className="text-[10px] font-mono text-zinc-400">
@@ -222,17 +239,34 @@ export function LeetCodeSection() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-bold font-mono text-white">{easySolved}</span>
+                    <span className="text-sm font-bold font-mono text-[#00ff11]">
+                      {easySolved}
+                    </span>
                     <span className="text-xs font-mono text-zinc-400"> / {stats?.totalEasy ?? 960}</span>
                   </div>
                 </div>
 
-                {/* Medium Pill */}
-                <div className="p-3 rounded-xl bg-zinc-900/90 border border-zinc-800/90 flex items-center justify-between transition-all hover:border-[#FFB800]/60 hover:shadow-[0_0_15px_rgba(255,184,0,0.15)] group">
+                {/* Medium Pill (Bright Yellow) */}
+                <div 
+                  onMouseEnter={() => setHoveredTier("Medium")}
+                  onMouseLeave={() => setHoveredTier(null)}
+                  style={{
+                    transform: hoveredTier === "Medium" ? "translateX(4px)" : "translateX(0px)",
+                    backgroundColor: hoveredTier === "Medium" ? "rgba(255, 230, 0, 0.12)" : "rgba(24, 24, 27, 0.8)",
+                    borderColor: hoveredTier === "Medium" ? "#FFE600" : "rgba(39, 39, 42, 0.8)",
+                  }}
+                  className="p-3 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer select-none group"
+                >
                   <div className="flex items-center gap-2.5">
-                    <span className="w-3 h-3 rounded-full bg-[#FFB800] shadow-[0_0_8px_#FFB800] shrink-0" />
+                    <span
+                      className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
+                      style={{
+                        backgroundColor: "#FFE600",
+                        transform: hoveredTier === "Medium" ? "scale(1.25)" : "scale(1)",
+                      }}
+                    />
                     <div>
-                      <div className="text-xs font-bold font-mono text-white group-hover:text-[#FFB800] transition-colors">
+                      <div className="text-xs font-bold font-mono text-white transition-colors">
                         Medium
                       </div>
                       <div className="text-[10px] font-mono text-zinc-400">
@@ -241,17 +275,34 @@ export function LeetCodeSection() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-bold font-mono text-white">{mediumSolved}</span>
+                    <span className="text-sm font-bold font-mono text-[#FFE600]">
+                      {mediumSolved}
+                    </span>
                     <span className="text-xs font-mono text-zinc-400"> / {stats?.totalMedium ?? 2103}</span>
                   </div>
                 </div>
 
-                {/* Hard Pill */}
-                <div className="p-3 rounded-xl bg-zinc-900/90 border border-zinc-800/90 flex items-center justify-between transition-all hover:border-[#FF0055]/60 hover:shadow-[0_0_15px_rgba(255,0,85,0.15)] group">
+                {/* Hard Pill (Bright Red) */}
+                <div 
+                  onMouseEnter={() => setHoveredTier("Hard")}
+                  onMouseLeave={() => setHoveredTier(null)}
+                  style={{
+                    transform: hoveredTier === "Hard" ? "translateX(4px)" : "translateX(0px)",
+                    backgroundColor: hoveredTier === "Hard" ? "rgba(255, 23, 68, 0.12)" : "rgba(24, 24, 27, 0.8)",
+                    borderColor: hoveredTier === "Hard" ? "#FF1744" : "rgba(39, 39, 42, 0.8)",
+                  }}
+                  className="p-3 rounded-xl border flex items-center justify-between transition-all duration-200 cursor-pointer select-none group"
+                >
                   <div className="flex items-center gap-2.5">
-                    <span className="w-3 h-3 rounded-full bg-[#FF0055] shadow-[0_0_8px_#FF0055] shrink-0" />
+                    <span
+                      className="w-2.5 h-2.5 rounded-full shrink-0 transition-transform duration-200"
+                      style={{
+                        backgroundColor: "#FF1744",
+                        transform: hoveredTier === "Hard" ? "scale(1.25)" : "scale(1)",
+                      }}
+                    />
                     <div>
-                      <div className="text-xs font-bold font-mono text-white group-hover:text-[#FF0055] transition-colors">
+                      <div className="text-xs font-bold font-mono text-white transition-colors">
                         Hard
                       </div>
                       <div className="text-[10px] font-mono text-zinc-400">
@@ -260,7 +311,9 @@ export function LeetCodeSection() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-bold font-mono text-white">{hardSolved}</span>
+                    <span className="text-sm font-bold font-mono text-[#FF1744]">
+                      {hardSolved}
+                    </span>
                     <span className="text-xs font-mono text-zinc-400"> / {stats?.totalHard ?? 966}</span>
                   </div>
                 </div>
@@ -280,26 +333,26 @@ export function LeetCodeSection() {
           
           {/* Top 2 Cards: Ranking & Streak */}
           <div className="grid grid-cols-2 gap-4">
-            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default">
+            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default hover:-translate-y-1">
               <div className="flex items-center justify-between text-zinc-400 group-hover:text-zinc-800 mb-2">
                 <span className="text-xs font-mono">Global Rank</span>
                 <Trophy className="w-4 h-4 group-hover:text-black" />
               </div>
               <div className="text-2xl font-bold font-mono text-white group-hover:text-black">
-                #{loading ? "--" : (stats?.ranking ?? 1409718).toLocaleString()}
+                #{loading ? "--" : (stats?.ranking ?? 1410855).toLocaleString()}
               </div>
               <span className="text-[10px] font-mono text-zinc-400 group-hover:text-zinc-700 mt-1">
                 Active problem solver
               </span>
             </Card>
 
-            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default">
+            <Card className="p-4 hover:bg-white hover:text-black hover:border-white transition-all duration-300 group cursor-default hover:-translate-y-1">
               <div className="flex items-center justify-between text-zinc-400 group-hover:text-zinc-800 mb-2">
                 <span className="text-xs font-mono">Active Practice</span>
                 <Flame className="w-4 h-4 group-hover:text-black" />
               </div>
               <div className="text-2xl font-bold font-mono text-white group-hover:text-black">
-                {stats?.streakDays ?? 24} Days
+                {stats?.streakDays ?? 92} Days
               </div>
               <span className="text-[10px] font-mono text-zinc-400 group-hover:text-zinc-700 mt-1">
                 Active submission days
@@ -326,7 +379,7 @@ export function LeetCodeSection() {
                 ]).map((sub, idx) => (
                   <div
                     key={`${sub.title}-${idx}`}
-                    className="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900/60 border border-zinc-800/80 text-xs font-mono hover:bg-white hover:text-black hover:border-white transition-all group cursor-default"
+                    className="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900/60 border border-zinc-800/80 text-xs font-mono hover:bg-white hover:text-black hover:border-white transition-all group cursor-default hover:-translate-x-1"
                   >
                     <div className="flex items-center gap-2 truncate">
                       <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black shrink-0" />

@@ -18,12 +18,11 @@ export function HeroSection() {
   );
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center pt-28 pb-16 overflow-hidden">
-      {/* Background Subtle Monochrome Glow & Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-white/[0.03] blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative min-h-[88vh] flex items-center justify-center pt-28 pb-16 overflow-hidden">
+      {/* Subtle Radial Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-white/[0.02] blur-[140px] rounded-full pointer-events-none z-0" />
 
-      <div className="relative max-w-6xl w-full mx-auto px-4 sm:px-6">
+      <div className="relative max-w-6xl w-full mx-auto px-4 sm:px-6 z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column: Bio & Intro (7 cols) */}
@@ -43,7 +42,7 @@ export function HeroSection() {
             </div>
 
             {/* College Highlight */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-200">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-950/80 border border-zinc-800 backdrop-blur-sm text-xs font-mono text-zinc-200">
               <GraduationCap className="w-4 h-4 text-white" />
               <span>{portfolioConfig.personal.college}</span>
             </div>
@@ -122,7 +121,7 @@ export function HeroSection() {
               <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-white z-20 pointer-events-none transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1" />
 
               {/* Main Clean Photo Card Frame */}
-              <div className="relative aspect-[4/5] sm:aspect-square w-full rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl overflow-hidden group-hover:border-zinc-500 transition-all duration-300">
+              <div className="relative aspect-[4/5] sm:aspect-square w-full rounded-2xl bg-zinc-950/90 border border-zinc-800 p-2 shadow-2xl overflow-hidden group-hover:border-zinc-500 transition-all duration-300 backdrop-blur-sm">
                 
                 {/* Photo container with object-cover and grayscale filter with hover contrast */}
                 <div className="relative w-full h-full rounded-xl overflow-hidden bg-zinc-900 flex items-center justify-center">
